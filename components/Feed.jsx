@@ -24,8 +24,21 @@ const Feed = () => {
   const [searchText, setSearchText] = useState('') ;
   const [post, setPost] = useState([]);
 
-  const handelSearchChange = (e)=>{
-     
+  const handelSearchChange = async(e)=>{
+
+    e.preventDefault() ;
+    setSearchText(e.target.value) ;
+    console.log(searchText) ;
+  
+    const response = await fetch('/api/search',{
+      method:"POST",
+      headers:{
+        'Content-Type':'application/json',
+      },
+      body:JSON.stringify({searchText}),
+    })
+    const data = await response.json() ;
+    setPost(data) ;
   }
 
   useEffect(()=>{
@@ -51,7 +64,7 @@ const Feed = () => {
            className='search_input peer'
          />
        </form>
-       
+      
       <PromptCardList
         data={post}
         handelTagClick={()=>{}}
