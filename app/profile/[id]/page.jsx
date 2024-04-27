@@ -21,7 +21,7 @@ const page = ({params}) => {
   return (
     <Profile
         name={name}
-        desc={`Welcome to ${name}'s personalized profile page.`}
+        desc={`Welcome to ${name}'s personalized profile page. See their exceptional prompts and get inspired by the power of their imagination`}
         data={data}
     />
   )
