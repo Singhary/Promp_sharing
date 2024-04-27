@@ -18,8 +18,6 @@ const PromptCardList = ({data , handelTagClick})=>{
     )
 }
 
-
-
 const Feed = () => {
   const [searchText, setSearchText] = useState('') ;
   const [post, setPost] = useState([]);
