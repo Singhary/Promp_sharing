@@ -1,5 +1,6 @@
 import { connectToDB } from "@utils/database";
 import Prompt from "@models/prompt";
+import User from "@models/user";
 
 export const POST = async (request , response)=>{
    
@@ -8,19 +9,27 @@ export const POST = async (request , response)=>{
         
         const {searchText} = await request.json() ;
         
-        const prompts = await Prompt.find({tag:searchText}).populate('creator') ;
+        const prompts = await Prompt.find({tag:searchText});
+        const userSearch = await User.find({username:searchText});
         
         console.log(prompts) ;
 
-        if(!prompts){
+        if(!prompts&&!userSearch){
             return new Response("No prompt found",{
                 status:404
             })
         }
         else{
-            return new Response(JSON.stringify(prompts),{
-                status:200
-            })
+           if(prompts){
+                return new Response(JSON.stringify(prompts),{
+                    status:200
+                })
+            }
+            else{
+                return new Response(JSON.stringify(userSearch),{
+                    status:200
+                })
+            }
         }
 
     } catch (error) {
